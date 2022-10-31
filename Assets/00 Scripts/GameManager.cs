@@ -99,8 +99,8 @@ public class GameManager : MonoBehaviour
         }
 
         lastDongle = GetDongle();
-        lastDongle.level = Random.Range(8, 9); //쿠로미 두근거림 테스트용
-        //lastDongle.level = Random.Range(0, maxLevel); //마지막 숫자는 포함 안됨
+        //lastDongle.level = Random.Range(8, 9); //쿠로미 두근거림 테스트용
+        lastDongle.level = Random.Range(0, maxLevel); //마지막 숫자는 포함 안됨
         lastDongle.gameObject.SetActive(true);
 
         SfxPlay(Sfx.Next);

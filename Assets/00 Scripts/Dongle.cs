@@ -9,6 +9,7 @@ public class Dongle : MonoBehaviour
     public bool isDrag; //±âº»°ª false
     public bool isMerge;
     public bool isAttach;
+    public bool isLine;
     public int level;
     
     public Rigidbody2D rigid;
@@ -191,16 +192,30 @@ public class Dongle : MonoBehaviour
         if (collision.tag == "Finish")
         {
             deadtime += Time.deltaTime;
-
+            
             if(deadtime > 2)
             {
-                spriteRenderer.color = Color.red;
+                //spriteRenderer.color = Color.red;
+                StartCoroutine("FadeColor");
+
             }
             if(deadtime > 4)
             {
                 manager.GameOver();
             }
         }    
+    }
+    IEnumerator FadeColor()
+    { 
+
+        float fadeCount = 1f;
+        while (fadeCount >= 0f)
+        {
+            fadeCount -= 0.01f;
+            yield return new WaitForSeconds(0.01f);
+            spriteRenderer.color = new Color(1, fadeCount, fadeCount, 1);
+        }
+
     }
     void OnTriggerExit2D(Collider2D collision)
     {
