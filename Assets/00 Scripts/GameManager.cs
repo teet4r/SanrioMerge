@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public Dongle lastDongle;
 
     [Header("----------[ Audio ]")]
+    public SoundManager soundManager;
     public AudioSource bgmPlayer;
     public AudioSource[] sfxPlayer;
     public AudioClip[] sfxClip;
@@ -56,7 +57,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        bgmPlayer.Play();
+        //bgmPlayer.Play();
+        //soundManager.bgmSource
         NextDongle();
     }
 
