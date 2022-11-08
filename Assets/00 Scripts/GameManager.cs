@@ -219,6 +219,12 @@ public class GameManager : MonoBehaviour
         sfxPlayer[sfxCursor].Play();
         sfxCursor = (sfxCursor + 1) / sfxPlayer.Length;
     }
+
+    public void PlaySfx(string sfxName)
+    {
+        soundManager.PlaySfx(sfxName);
+    }
+
     void Update()
     {
         if(Input.GetButtonDown("Cancel"))

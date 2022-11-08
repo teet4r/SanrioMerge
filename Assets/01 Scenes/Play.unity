@@ -519,14 +519,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 565865519}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: BtnSound
-        m_Mode: 1
+        m_MethodName: PlaySfx
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Button
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 1
@@ -1493,7 +1493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1969809b1ead3a41bb0e53c3ba969c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgmPlayer: {fileID: 1925257169}
+  bgmPlayer: {fileID: 0}
   sfxButton: {fileID: 0}
 --- !u!114 &565865522
 MonoBehaviour:
@@ -2294,14 +2294,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 565865519}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: BtnSound
-        m_Mode: 1
+        m_MethodName: PlaySfx
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Button
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1049050007
@@ -2619,7 +2619,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1201055494
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2853,14 +2853,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 565865519}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: BtnSound
-        m_Mode: 1
+        m_MethodName: PlaySfx
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Button
           m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1296541326

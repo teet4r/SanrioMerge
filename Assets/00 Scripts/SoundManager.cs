@@ -20,6 +20,7 @@ public class SoundManager : MonoBehaviour
                                  // instance는 null이 아님. 따라서 새로 생성된 해당 오브젝트를 제거해주어야 함
 
         audioSource = GetComponent<AudioSource>();
+        InitializeAudioSource();
 
         // 인스펙터에서 넣어준 audioClip들을 bgm 및 sfx dictionary에 넣어줌으로써
         // O(1)시간에 원하는 클립을 재생시킬 수 있도록 함.
@@ -47,6 +48,13 @@ public class SoundManager : MonoBehaviour
         audioSource.Play();
     }
 
+    public void PlayBgm(Bgm bgm, bool loop = true)
+    {
+        audioSource.loop = loop; // 루프할지 말지 인자로 결정
+        audioSource.clip = bgmClips[(int)bgm];
+        audioSource.Play();
+    }
+
     /// <summary>
     /// 실행중인 bgm멈춤.
     /// 이미 실행중인 bgm이 없으면 아무것도 실행하지 않고 종료
@@ -70,6 +78,41 @@ public class SoundManager : MonoBehaviour
 
         // sfx는 일회성이므로 PlayOneShot()함수로 실행
         audioSource.PlayOneShot(sfxDictionary[sfxName]);
+    }
+
+    public void PlaySfx(Sfx sfx)
+    {
+        // sfx는 일회성이므로 PlayOneShot()함수로 실행
+        audioSource.PlayOneShot(sfxClips[(int)sfx]);
+    }
+
+    public enum Bgm
+    {
+        BGM1, BGM2, BGM3, BGM4
+    }
+
+    public enum Sfx
+    {
+        LEVELUP, NEXT, ATTACH, BUTTON, OVER
+    }
+
+    public bool mute
+    {
+        get { return mute; }
+        set
+        {
+            mute = value;
+            audioSource.mute = mute;
+        }
+    }
+
+    /// <summary>
+    /// 오디오소스 초기화 함수
+    /// </summary>
+    void InitializeAudioSource()
+    {
+        mute = false;
+        audioSource.playOnAwake = false;
     }
 
     [SerializeField]

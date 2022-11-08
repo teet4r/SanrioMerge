@@ -17,6 +17,7 @@ public class Dongle : MonoBehaviour
     CircleCollider2D circle;
     Animator anim;
     SpriteRenderer spriteRenderer;
+    SoundManager soundManager;
 
     float deadtime;
 
@@ -29,7 +30,9 @@ public class Dongle : MonoBehaviour
     }
     void OnEnable()
     {
-        anim.SetInteger("Level", level);    
+        soundManager = SoundManager.instance;
+
+        anim.SetInteger("Level", level);
     }
     void OnDisable()
     {
@@ -46,7 +49,6 @@ public class Dongle : MonoBehaviour
         rigid.velocity = Vector2.zero;
         rigid.angularVelocity = 0;
         circle.enabled = true;
-
     }
     void Update()
     {
@@ -94,7 +96,8 @@ public class Dongle : MonoBehaviour
             yield break;
         }
         isAttach = true;
-        manager.SfxPlay(GameManager.Sfx.Attach);
+        //manager.SfxPlay(GameManager.Sfx.Attach);
+        soundManager.PlaySfx(SoundManager.Sfx.ATTACH);
 
         yield return new WaitForSeconds(0.2f);
 
@@ -176,7 +179,8 @@ public class Dongle : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         EffectPlay();
-        manager.SfxPlay(GameManager.Sfx.LevelUp);
+        //manager.SfxPlay(GameManager.Sfx.LevelUp);
+        soundManager.PlaySfx(SoundManager.Sfx.LEVELUP);
 
         anim.SetInteger("Level", level + 1);
 
