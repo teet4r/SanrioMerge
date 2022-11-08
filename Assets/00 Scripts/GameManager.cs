@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
         lastDongle.gameObject.SetActive(true);
 
         SfxPlay(Sfx.Next);
-        StartCoroutine("WaitNext");
+        StartCoroutine(WaitNext());
     }
     IEnumerator WaitNext()
     {
@@ -139,13 +139,13 @@ public class GameManager : MonoBehaviour
         }
         isOver = true;
 
-        StartCoroutine("GameOverRoutine");
+        StartCoroutine(GameOverRoutine());
     }
 
     IEnumerator GameOverRoutine()
     {
         // 장면안에 활성화 되어있는 모든 동글 가져오기
-        Dongle[] dongles = GameObject.FindObjectsOfType<Dongle>();
+        Dongle[] dongles = FindObjectsOfType<Dongle>();
 
         // 윗 목록 하나씩 접근해서 삭제
         for (int i = 0; i < dongles.Length; i++)
@@ -176,7 +176,7 @@ public class GameManager : MonoBehaviour
     public void Reset()
     {
         SfxPlay(Sfx.Button);
-        StartCoroutine("ResetCorutine");
+        StartCoroutine(ResetCorutine());
     }
     IEnumerator ResetCorutine()
     {
@@ -186,7 +186,7 @@ public class GameManager : MonoBehaviour
     public void Home()
     {
         SfxPlay(Sfx.Button);
-        StartCoroutine("HomeCorutine");
+        StartCoroutine(HomeCorutine());
     }
     IEnumerator HomeCorutine()
     {

@@ -87,7 +87,7 @@ public class Dongle : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        StartCoroutine("AttachRoutine");
+        StartCoroutine(AttachRoutine());
     }
     IEnumerator AttachRoutine()
     {
@@ -105,7 +105,7 @@ public class Dongle : MonoBehaviour
     }
     void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.gameObject.tag=="Dongle")
+        if(collision.gameObject.CompareTag("Dongle"))
         {
             Dongle other = collision.gameObject.GetComponent<Dongle>();
 
@@ -147,17 +147,13 @@ public class Dongle : MonoBehaviour
     {
         int frameCount = 0;
 
-        while(frameCount<20)
+        while (frameCount < 20)
         {
             frameCount++;
             if (targetPos != Vector3.up * 100)
-            {
                 transform.position = Vector3.Lerp(transform.position, targetPos, 0.5f);
-            }
-            else if (targetPos == Vector3.up * 100)
-            {
+            else
                 transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, 0.2f);
-            }
             yield return null;
         }
 
@@ -193,14 +189,14 @@ public class Dongle : MonoBehaviour
     }
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.tag == "Finish")
+        if (collision.CompareTag("Finish"))
         {
             deadtime += Time.deltaTime;
             
             if(deadtime > 2)
             {
                 //spriteRenderer.color = Color.red;
-                StartCoroutine("FadeColor");
+                StartCoroutine(FadeColor());
 
             }
             if(deadtime > 4)
