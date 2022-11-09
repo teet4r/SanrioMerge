@@ -17,6 +17,7 @@ public class Dongle : MonoBehaviour
     CircleCollider2D circle;
     Animator anim;
     SpriteRenderer spriteRenderer;
+    Color dongleColor;
     SoundManager soundManager;
 
     float deadtime;
@@ -27,12 +28,15 @@ public class Dongle : MonoBehaviour
         anim = GetComponent<Animator>();
         circle = GetComponent<CircleCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        dongleColor = spriteRenderer.color;
     }
     void OnEnable()
     {
         soundManager = SoundManager.instance;
 
         anim.SetInteger("Level", level);
+        spriteRenderer.color = dongleColor;
     }
     void OnDisable()
     {
@@ -92,12 +96,10 @@ public class Dongle : MonoBehaviour
     IEnumerator AttachRoutine()
     {
         if(isAttach)
-        {
             yield break;
-        }
         isAttach = true;
         //manager.SfxPlay(GameManager.Sfx.Attach);
-        soundManager.PlaySfx(SoundManager.Sfx.ATTACH);
+        soundManager.sfxAudio.Play(SfxAudio.Sfx.ATTACH);
 
         yield return new WaitForSeconds(0.2f);
 
@@ -109,21 +111,32 @@ public class Dongle : MonoBehaviour
         {
             Dongle other = collision.gameObject.GetComponent<Dongle>();
 
-            if(level == other.level && !isMerge && !other.isMerge && level < 8)
+            if(level == other.level && !isMerge && !other.isMerge)
             {
-                //나와 상대 위치 가져오기
-                float meX = transform.position.x;
-                float meY = transform.position.y;
-                float otherX = other.transform.position.x;
-                float otherY = other.transform.position.y;
-                //1. 내가 아래
-                //2. 동일한 높이, 내가 오른쪽
-                if (meY < otherY || (meY == otherY && meX > otherX))
+                if (level < 8)
                 {
-                    //상대 숨기기
-                    other.Hide(transform.position);
-                    //나 레벨업
-                    LevelUp();
+                    //나와 상대 위치 가져오기
+                    float meX = transform.position.x;
+                    float meY = transform.position.y;
+                    float otherX = other.transform.position.x;
+                    float otherY = other.transform.position.y;
+                    //1. 내가 아래
+                    //2. 동일한 높이, 내가 오른쪽
+                    if (meY < otherY || (meY == otherY && meX > otherX))
+                    {
+                        //상대 숨기기
+                        other.Hide(transform.position);
+                        //나 레벨업
+                        LevelUp();
+                    }
+                }
+                else // level >= 8
+                {
+                    GameManager.instance.BottomUp();
+                    other.Hide(Vector3.up * 100);
+                    other.EffectPlay();
+                    Hide(Vector3.up * 100);
+                    EffectPlay();
                 }
             }
         }
@@ -153,7 +166,7 @@ public class Dongle : MonoBehaviour
             if (targetPos != Vector3.up * 100)
                 transform.position = Vector3.Lerp(transform.position, targetPos, 0.5f);
             else
-                transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, 0.2f);
+                transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, 0.05f);
             yield return null;
         }
 
@@ -176,7 +189,7 @@ public class Dongle : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         EffectPlay();
         //manager.SfxPlay(GameManager.Sfx.LevelUp);
-        soundManager.PlaySfx(SoundManager.Sfx.LEVELUP);
+        soundManager.sfxAudio.Play(SfxAudio.Sfx.LEVELUP);
 
         anim.SetInteger("Level", level + 1);
 
@@ -207,7 +220,6 @@ public class Dongle : MonoBehaviour
     }
     IEnumerator FadeColor()
     { 
-
         float fadeCount = 1f;
         while (fadeCount >= 0f)
         {
@@ -219,7 +231,7 @@ public class Dongle : MonoBehaviour
     }
     void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.tag=="Finish")
+        if(collision.CompareTag("Finish"))
         {
             deadtime = 0;
             spriteRenderer.color = Color.white;

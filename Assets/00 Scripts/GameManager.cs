@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+
     [Header("----------[ Core ]")]
     public int score;
     public int maxLevel;
@@ -23,22 +25,17 @@ public class GameManager : MonoBehaviour
     public int poolCursor;
     public Dongle lastDongle;
 
-    [Header("----------[ Audio ]")]
-    public SoundManager soundManager;
-    public AudioSource bgmPlayer;
-    public AudioSource[] sfxPlayer;
-    public AudioClip[] sfxClip;
-    public enum Sfx { LevelUp, Next, Attach, Button, Over};
-    int sfxCursor;
-
     [Header("----------[ UI ]")]
     public GameObject endGroup;
     public Text scoreText;
     public Text maxScoreText;
     public Text subScoreText;
+    public GameObject bottom;
 
     void Awake()
     {
+        instance = this;
+
         Application.targetFrameRate = 60;
 
         donglePool = new List<Dongle>();
@@ -78,7 +75,6 @@ public class GameManager : MonoBehaviour
         instantDongle.effect = instantEffect;
         donglePool.Add(instantDongle);
 
-
         return instantDongle;
     }
     Dongle GetDongle()
@@ -105,7 +101,6 @@ public class GameManager : MonoBehaviour
         lastDongle.level = Random.Range(0, maxLevel); //마지막 숫자는 포함 안됨
         lastDongle.gameObject.SetActive(true);
 
-        SfxPlay(Sfx.Next);
         StartCoroutine(WaitNext());
     }
     IEnumerator WaitNext()
@@ -133,10 +128,7 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver()
     {
-        if(isOver)
-        {
-            return;
-        }
+        if(isOver) return;
         isOver = true;
 
         StartCoroutine(GameOverRoutine());
@@ -169,13 +161,9 @@ public class GameManager : MonoBehaviour
         //게임오버 ui
         subScoreText.text = "점수 : " + scoreText.text;
         endGroup.SetActive(true);
-
-        bgmPlayer.Stop();
-        SfxPlay(Sfx.Over);
     }
     public void Reset()
     {
-        SfxPlay(Sfx.Button);
         StartCoroutine(ResetCorutine());
     }
     IEnumerator ResetCorutine()
@@ -185,44 +173,12 @@ public class GameManager : MonoBehaviour
     }
     public void Home()
     {
-        SfxPlay(Sfx.Button);
         StartCoroutine(HomeCorutine());
     }
     IEnumerator HomeCorutine()
     {
         yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(1);
-    }
-
-    public void SfxPlay(Sfx type)
-    {
-        // sfx 소리 듣고 골라서 넣기 순서대로 놓기
-        switch (type)
-        {
-            case Sfx.LevelUp:
-                sfxPlayer[sfxCursor].clip = sfxClip[0];
-                break;
-            case Sfx.Attach:
-                sfxPlayer[sfxCursor].clip = sfxClip[1];
-                break;
-            case Sfx.Button:
-                sfxPlayer[sfxCursor].clip = sfxClip[2];
-                break;
-            case Sfx.Next:
-                sfxPlayer[sfxCursor].clip = sfxClip[3];
-                break;
-            case Sfx.Over:
-                sfxPlayer[sfxCursor].clip = sfxClip[4];
-                break;
-        }
-
-        sfxPlayer[sfxCursor].Play();
-        sfxCursor = (sfxCursor + 1) / sfxPlayer.Length;
-    }
-
-    public void PlaySfx(string sfxName)
-    {
-        soundManager.PlaySfx(sfxName);
     }
 
     void Update()
@@ -236,8 +192,18 @@ public class GameManager : MonoBehaviour
     {
         scoreText.text = score.ToString();    
     }
-    public void BtnSound()
+
+    public void BottomUp()
     {
-        SfxPlay(Sfx.Button);
+        StartCoroutine(BottomUpRoutine());
+    }
+
+    IEnumerator BottomUpRoutine()
+    {
+        for (int i = 0; i < 40; i++)
+        {
+            bottom.transform.localPosition += new Vector3(0, 0.01f, 0);
+            yield return null;
+        }
     }
 }
