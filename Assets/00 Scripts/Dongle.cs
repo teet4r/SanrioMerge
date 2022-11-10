@@ -20,7 +20,10 @@ public class Dongle : MonoBehaviour
     Color dongleColor;
     SoundManager soundManager;
 
-    float deadtime;
+    Coroutine fadeInColor = null;
+    Coroutine fadeOutColor = null;
+
+    float deadtime = 0;
 
     void Awake()
     {
@@ -205,39 +208,49 @@ public class Dongle : MonoBehaviour
         if (collision.CompareTag("Finish"))
         {
             deadtime += Time.deltaTime;
-            
-            if(deadtime > 2)
-            {
-                //spriteRenderer.color = Color.red;
-                StartCoroutine(FadeColor());
 
-            }
-            if(deadtime > 4)
+            if (fadeOutColor != null)
             {
+                StopCoroutine(FadeOutColor());
+                fadeInColor = null;
+            }
+
+            if (deadtime > 2 && fadeInColor == null)
+                fadeInColor = StartCoroutine(FadeInColor());
+            if (deadtime > 4)
                 manager.GameOver();
-            }
-        }    
-    }
-    IEnumerator FadeColor()
-    { 
-        float fadeCount = 1f;
-        while (fadeCount >= 0f)
-        {
-            fadeCount -= 0.01f;
-            yield return new WaitForSeconds(0.01f);
-            spriteRenderer.color = new Color(1, fadeCount, fadeCount, 1);
         }
-
     }
     void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.CompareTag("Finish"))
+        if (collision.CompareTag("Finish"))
         {
             deadtime = 0;
-            spriteRenderer.color = Color.white;
+            if (fadeInColor != null)
+            {
+                StopCoroutine(fadeInColor);
+                fadeInColor = null;
+            }
+            if (fadeOutColor == null)
+                fadeOutColor = StartCoroutine(FadeOutColor());
         }
     }
-
+    IEnumerator FadeInColor()
+    {
+        while (spriteRenderer.color.g > 0f)
+        {
+            yield return new WaitForSeconds(0.01f);
+            spriteRenderer.color = new Color(1, spriteRenderer.color.g - 0.01f, spriteRenderer.color.b - 0.01f, 1);
+        }
+    }
+    IEnumerator FadeOutColor()
+    {
+        while (spriteRenderer.color.g < 1f)
+        {
+            yield return new WaitForSeconds(0.01f);
+            spriteRenderer.color = new Color(1, spriteRenderer.color.g + 0.01f, spriteRenderer.color.b + 0.01f, 1);
+        }
+    }
     void EffectPlay()
     {
         effect.transform.position = transform.position;

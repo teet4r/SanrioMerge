@@ -8,6 +8,6 @@ public class BgmOnOff : ButtonOnOff
     {
         isOn = !isOn;
         image.sprite = isOn ? OnSprite : OffSprite;
-        soundManager.bgmAudio.mute = !isOn;
+        soundManager.bgmAudio.SetMute(!isOn);
     }
 }

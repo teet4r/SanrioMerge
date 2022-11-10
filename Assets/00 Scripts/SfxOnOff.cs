@@ -8,6 +8,6 @@ public class SfxOnOff : ButtonOnOff
     {
         isOn = !isOn;
         image.sprite = isOn ? OnSprite : OffSprite;
-        soundManager.sfxAudio.mute = !isOn;
+        soundManager.sfxAudio.SetMute(!isOn);
     }
 }

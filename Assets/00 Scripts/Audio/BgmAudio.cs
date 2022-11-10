@@ -57,14 +57,9 @@ public class BgmAudio : MonoBehaviour
         BGM1, BGM2, BGM3, BGM4
     }
 
-    public bool mute
+    public void SetMute(bool mute)
     {
-        get { return mute; }
-        set
-        {
-            mute = value;
-            audioSource.mute = mute;
-        }
+        audioSource.mute = mute;
     }
 
     [SerializeField]

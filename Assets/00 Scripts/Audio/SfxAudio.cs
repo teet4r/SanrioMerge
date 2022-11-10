@@ -37,14 +37,9 @@ public class SfxAudio : MonoBehaviour
         LEVELUP, ATTACH, BUTTON, NEXT, OVER
     }
 
-    public bool mute
+    public void SetMute(bool mute)
     {
-        get { return mute; }
-        set
-        {
-            mute = value;
-            audioSource.mute = mute;
-        }
+        audioSource.mute = mute;
     }
 
     [SerializeField]
