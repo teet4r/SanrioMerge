@@ -178,7 +178,7 @@ public class GameManager : MonoBehaviour
     IEnumerator HomeCorutine()
     {
         yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 
     void Update()

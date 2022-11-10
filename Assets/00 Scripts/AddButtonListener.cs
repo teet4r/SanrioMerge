@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SettingPopUp : MonoBehaviour
+public class AddButtonListener : MonoBehaviour
 {
     void OnEnable()
     {
