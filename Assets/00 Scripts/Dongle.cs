@@ -59,6 +59,8 @@ public class Dongle : MonoBehaviour
     }
     void Update()
     {
+        Debug.Log(Screen.width);
+        Debug.Log(Screen.height);
         if (isDrag)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); //스크린 좌표를 월드 좌표로
