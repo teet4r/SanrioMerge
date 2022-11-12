@@ -6,8 +6,11 @@ public class Ground : MonoBehaviour
 {
     void Awake()
     {
-        leftWall.transform.localPosition = new Vector2(-Screen.width / 100 / 2f - 128 / 900f, 0f);
-        rightWall.transform.localPosition = new Vector2(Screen.width / 100 / 2f + 128 / 900f, 0f);
+        float cameraHalfHeight = Camera.main.orthographicSize;
+        float cameraHalfWidth = Camera.main.orthographicSize * Screen.width / Screen.height;
+
+        leftWall.transform.localPosition = new Vector2(-cameraHalfWidth - 0.5f, 0f);
+        rightWall.transform.localPosition = new Vector2(cameraHalfWidth + 0.5f, 0f);
     }
 
     public GameObject leftWall;
