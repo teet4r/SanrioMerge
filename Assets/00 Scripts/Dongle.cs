@@ -59,8 +59,6 @@ public class Dongle : MonoBehaviour
     }
     void Update()
     {
-        Debug.Log(Screen.width);
-        Debug.Log(Screen.height);
         if (isDrag)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); //스크린 좌표를 월드 좌표로
@@ -94,25 +92,26 @@ public class Dongle : MonoBehaviour
         rigid.simulated = true;
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    /*void OnCollisionEnter2D(Collision2D collision)
     {
         StartCoroutine(AttachRoutine());
-    }
+    }*/
     IEnumerator AttachRoutine()
     {
-        if(isAttach)
-            yield break;
+        if(isAttach) yield break;
         isAttach = true;
-        //manager.SfxPlay(GameManager.Sfx.Attach);
+
         soundManager.sfxAudio.Play(SfxAudio.Sfx.ATTACH);
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
 
         isAttach = false;
     }
-    void OnCollisionStay2D(Collision2D collision)
+
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Dongle"))
+        StartCoroutine(AttachRoutine());
+        if (collision.gameObject.CompareTag("Dongle"))
         {
             Dongle other = collision.gameObject.GetComponent<Dongle>();
 
@@ -146,6 +145,44 @@ public class Dongle : MonoBehaviour
             }
         }
     }
+
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Dongle"))
+        {
+            Dongle other = collision.gameObject.GetComponent<Dongle>();
+
+            if (level == other.level && !isMerge && !other.isMerge)
+            {
+                if (level < 8)
+                {
+                    //나와 상대 위치 가져오기
+                    float meX = transform.position.x;
+                    float meY = transform.position.y;
+                    float otherX = other.transform.position.x;
+                    float otherY = other.transform.position.y;
+                    //1. 내가 아래
+                    //2. 동일한 높이, 내가 오른쪽
+                    if (meY < otherY || (meY == otherY && meX > otherX))
+                    {
+                        //상대 숨기기
+                        other.Hide(transform.position);
+                        //나 레벨업
+                        LevelUp();
+                    }
+                }
+                else // level >= 8
+                {
+                    GameManager.instance.BottomUp();
+                    other.Hide(Vector3.up * 100);
+                    other.EffectPlay();
+                    Hide(Vector3.up * 100);
+                    EffectPlay();
+                }
+            }
+        }
+    }
+
     public void Hide(Vector3 targetPos)
     {
         isMerge = true;
