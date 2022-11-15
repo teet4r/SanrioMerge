@@ -451,18 +451,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 341903139}
-        m_TargetAssemblyTypeName: SfxAudio, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Button
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &182762984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1425,6 +1413,7 @@ GameObject:
   - component: {fileID: 703324700}
   - component: {fileID: 703324699}
   - component: {fileID: 703324698}
+  - component: {fileID: 703324701}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1513,6 +1502,37 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &703324701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 703324696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 792f76e5c7d219646bf172497cd48a34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonSfxes:
+  - button: {fileID: 1087876194}
+    sfx: 2
+  - button: {fileID: 1624803658}
+    sfx: 2
+  - button: {fileID: 1399110802}
+    sfx: 2
+  - button: {fileID: 2094721119}
+    sfx: 2
+  - button: {fileID: 813047293}
+    sfx: 2
+  - button: {fileID: 2037426294}
+    sfx: 2
+  - button: {fileID: 402248392}
+    sfx: 2
+  - button: {fileID: 182762983}
+    sfx: 2
+  - button: {fileID: 1860893533}
+    sfx: 2
 --- !u!1 &715211841
 GameObject:
   m_ObjectHideFlags: 0
@@ -1780,18 +1800,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 341903139}
-        m_TargetAssemblyTypeName: SfxAudio, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Button
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &813047294
@@ -2477,18 +2485,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 341903139}
-        m_TargetAssemblyTypeName: SfxAudio, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Button
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1087876195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2674,7 +2670,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1221605140
 GameObject:
@@ -3117,18 +3113,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 341903139}
-        m_TargetAssemblyTypeName: SfxAudio, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Button
-          m_BoolArgument: 1
-        m_CallState: 2
 --- !u!114 &1399110803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3275,7 +3259,7 @@ Transform:
   m_Children:
   - {fileID: 703324697}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1513006062
 GameObject:
@@ -3684,18 +3668,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 341903139}
-        m_TargetAssemblyTypeName: SfxAudio, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Button
-          m_BoolArgument: 1
-        m_CallState: 2
 --- !u!114 &1624803659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3829,7 +3801,6 @@ GameObject:
   - component: {fileID: 1655158375}
   - component: {fileID: 1655158374}
   - component: {fileID: 1655158373}
-  - component: {fileID: 1655158376}
   m_Layer: 5
   m_Name: SettingPopUp
   m_TagString: Untagged
@@ -3915,22 +3886,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1655158371}
   m_CullTransparentMesh: 1
---- !u!114 &1655158376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1655158371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 792f76e5c7d219646bf172497cd48a34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttons:
-  - {fileID: 813047293}
-  - {fileID: 2037426294}
-  - {fileID: 402248392}
 --- !u!1 &1657663229
 GameObject:
   m_ObjectHideFlags: 0
@@ -4509,18 +4464,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 341903139}
-        m_TargetAssemblyTypeName: SfxAudio, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Button
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1860893534
@@ -5421,18 +5364,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 341903139}
-        m_TargetAssemblyTypeName: SfxAudio, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Button
           m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &2094721120

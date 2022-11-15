@@ -12,14 +12,9 @@ public abstract class ButtonOnOff : MonoBehaviour
         image = GetComponent<Image>();
     }
 
-    void OnEnable()
-    {
-        soundManager = SoundManager.instance;
-    }
-
     public abstract void OnClickEvent();
 
-    public bool isOn { get; protected set; } = true;
+    public bool isOn { get; protected set; }
 
     [SerializeField]
     protected Sprite OnSprite;
@@ -27,5 +22,4 @@ public abstract class ButtonOnOff : MonoBehaviour
     protected Sprite OffSprite;
 
     protected Image image;
-    protected SoundManager soundManager;
 }

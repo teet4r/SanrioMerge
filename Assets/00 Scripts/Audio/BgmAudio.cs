@@ -2,12 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Bgm
+{
+    BGM1, BGM2, BGM3, BGM4
+}
+
 [RequireComponent(typeof(AudioSource))]
 public class BgmAudio : MonoBehaviour
 {
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        if (PlayerPrefs.GetInt(PlayerPrefsKey.BGM_ON) == 0)
+            mute = true;
 
         // 인스펙터에서 넣어준 audioClip들을 bgm 및 sfx dictionary에 넣어줌으로써
         // O(1)시간에 원하는 클립을 재생시킬 수 있도록 함.
@@ -52,14 +59,14 @@ public class BgmAudio : MonoBehaviour
         audioSource.Stop();
     }
 
-    public enum Bgm
+    public bool mute
     {
-        BGM1, BGM2, BGM3, BGM4
-    }
-
-    public void SetMute(bool mute)
-    {
-        audioSource.mute = mute;
+        get { return audioSource.mute; }
+        set
+        {
+            audioSource.mute = value;
+            PlayerPrefs.SetInt(PlayerPrefsKey.BGM_ON, value ? 0 : 1);
+        }
     }
 
     [SerializeField]

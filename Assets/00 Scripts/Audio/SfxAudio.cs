@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Sfx
+{
+    LEVELUP, ATTACH, BUTTON, NEXT, GAMEOVER
+}
+
 [RequireComponent(typeof(AudioSource))]
 public class SfxAudio : MonoBehaviour
 {
@@ -32,14 +37,14 @@ public class SfxAudio : MonoBehaviour
         audioSource.PlayOneShot(clips[(int)sfx]);
     }
 
-    public enum Sfx
+    public bool mute
     {
-        LEVELUP, ATTACH, BUTTON, NEXT, OVER
-    }
-
-    public void SetMute(bool mute)
-    {
-        audioSource.mute = mute;
+        get { return audioSource.mute; }
+        set
+        {
+            audioSource.mute = value;
+            PlayerPrefs.SetInt(PlayerPrefsKey.SFX_ON, value ? 0 : 1);
+        }
     }
 
     [SerializeField]

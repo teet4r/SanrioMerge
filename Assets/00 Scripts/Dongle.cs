@@ -101,7 +101,7 @@ public class Dongle : MonoBehaviour
         if(isAttach) yield break;
         isAttach = true;
 
-        soundManager.sfxAudio.Play(SfxAudio.Sfx.ATTACH);
+        soundManager.sfxAudio.Play(Sfx.ATTACH);
 
         yield return new WaitForSeconds(0.5f);
 
@@ -231,7 +231,7 @@ public class Dongle : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         EffectPlay();
         //manager.SfxPlay(GameManager.Sfx.LevelUp);
-        soundManager.sfxAudio.Play(SfxAudio.Sfx.LEVELUP);
+        soundManager.sfxAudio.Play(Sfx.LEVELUP);
 
         anim.SetInteger("Level", level + 1);
 
