@@ -37,6 +37,17 @@ public class SfxAudio : MonoBehaviour
         audioSource.PlayOneShot(clips[(int)sfx]);
     }
 
+    public void Play(int sfxIndex)
+    {
+        if (sfxIndex < 0 || sfxIndex >= clips.Length)
+        {
+            Debug.Log("sfxIndex Error.");
+            return;
+        }
+        // sfx는 일회성이므로 PlayOneShot()함수로 실행
+        audioSource.PlayOneShot(clips[sfxIndex]);
+    }
+
     public bool mute
     {
         get { return audioSource.mute; }

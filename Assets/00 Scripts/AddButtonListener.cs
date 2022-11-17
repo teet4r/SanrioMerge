@@ -15,7 +15,10 @@ public class AddButtonListener : MonoBehaviour
     void OnEnable()
     {
         for (int i = 0; i < buttonSfxes.Length; i++)
-            buttonSfxes[i].button.onClick.AddListener(delegate { SoundManager.instance.sfxAudio.Play(buttonSfxes[i].sfx); });
+        {
+            var delegateI = i;
+            buttonSfxes[i].button.onClick.AddListener(delegate { SoundManager.instance.sfxAudio.Play(buttonSfxes[delegateI].sfx); });
+        }
     }
 
     [SerializeField]

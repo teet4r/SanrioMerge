@@ -41,35 +41,31 @@ public class GameManager : MonoBehaviour
         donglePool = new List<Dongle>();
         effectPool = new List<ParticleSystem>();
         for(int i=0; i<poolSize; i++)
-        {
             MakeDongle();
-        }
-        if (!PlayerPrefs.HasKey("MaxScore"))
-        {
-            PlayerPrefs.SetInt("MaxScore", 0);
-        }
+        if (!PlayerPrefs.HasKey(PlayerPrefsKey.MAX_SCORE))
+            PlayerPrefs.SetInt(PlayerPrefsKey.MAX_SCORE, 0);
 
-        maxScoreText.text = PlayerPrefs.GetInt("MaxScore").ToString();
+        maxScoreText.text = PlayerPrefs.GetInt(PlayerPrefsKey.MAX_SCORE).ToString();
     }
 
     void Start()
     {
-        //bgmPlayer.Play();
-        //soundManager.bgmSource
         NextDongle();
     }
 
+    const string strEffect = "Effect";
+    const string strDongle = "Dongle";
     Dongle MakeDongle()
     {
         //이펙트 생성
         GameObject instantEffectObj = Instantiate(effectPrefab, effectGroup);
-        instantEffectObj.name = "Effect" + effectPool.Count;
+        instantEffectObj.name = strEffect + effectPool.Count;
         ParticleSystem instantEffect = instantEffectObj.GetComponent<ParticleSystem>();
         effectPool.Add(instantEffect);
 
         //동글 생성
         GameObject instantDongleObj = Instantiate(donglePrefab, dongleGroup);
-        instantDongleObj.name = "Dongle" + effectPool.Count;
+        instantDongleObj.name = strDongle + effectPool.Count;
         Dongle instantDongle = instantDongleObj.GetComponent<Dongle>();
         instantDongle.manager = this;
         instantDongle.effect = instantEffect;
@@ -83,19 +79,13 @@ public class GameManager : MonoBehaviour
         {
             poolCursor = (poolCursor+1) % donglePool.Count;
             if(!donglePool[poolCursor].gameObject.activeSelf)
-            {
                 return donglePool[poolCursor];
-            }
         }
         return MakeDongle();
     }
     void NextDongle()
     {
-        if(isOver)
-        {
-            return;
-        }
-
+        if(isOver) return;
         lastDongle = GetDongle();
         //lastDongle.level = Random.Range(8, 9); //쿠로미 두근거림 테스트용
         lastDongle.level = Random.Range(0, maxLevel); //마지막 숫자는 포함 안됨
@@ -106,9 +96,7 @@ public class GameManager : MonoBehaviour
     IEnumerator WaitNext()
     {
         while (lastDongle != null)
-        {
             yield return null;
-        }
         yield return new WaitForSeconds(1.8f);
 
         NextDongle();
@@ -134,6 +122,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(GameOverRoutine());
     }
 
+    const string strScore = "점수 : ";
     IEnumerator GameOverRoutine()
     {
         // 장면안에 활성화 되어있는 모든 동글 가져오기
@@ -154,12 +143,12 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         //최고 점수 갱신
-        int maxScore = Mathf.Max(score, PlayerPrefs.GetInt("MaxScore"));
-        PlayerPrefs.SetInt("MaxScore", maxScore);
+        int maxScore = Mathf.Max(score, PlayerPrefs.GetInt(PlayerPrefsKey.MAX_SCORE));
+        PlayerPrefs.SetInt(PlayerPrefsKey.MAX_SCORE, maxScore);
 
 
         //게임오버 ui
-        subScoreText.text = "점수 : " + scoreText.text;
+        subScoreText.text = strScore + scoreText.text;
         endGroup.SetActive(true);
     }
     public void Reset()
@@ -169,7 +158,7 @@ public class GameManager : MonoBehaviour
     IEnumerator ResetCorutine()
     {
         yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadScene("Play");
+        SceneManager.LoadScene(1);
     }
     public void Home()
     {
@@ -184,9 +173,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if(Input.GetButtonDown("Cancel"))
-        {
             Application.Quit();
-        }
     }
     void LateUpdate()
     {

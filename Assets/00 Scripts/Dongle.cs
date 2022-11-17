@@ -38,7 +38,7 @@ public class Dongle : MonoBehaviour
     {
         soundManager = SoundManager.instance;
 
-        anim.SetInteger("Level", level);
+        anim.SetInteger(AniParam.LEVEL, level);
         spriteRenderer.color = dongleColor;
     }
     void OnDisable()
@@ -111,7 +111,7 @@ public class Dongle : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         StartCoroutine(AttachRoutine());
-        if (collision.gameObject.CompareTag("Dongle"))
+        if (collision.gameObject.CompareTag(Tag.DONGLE))
         {
             Dongle other = collision.gameObject.GetComponent<Dongle>();
 
@@ -148,7 +148,7 @@ public class Dongle : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Dongle"))
+        if (collision.gameObject.CompareTag(Tag.DONGLE))
         {
             Dongle other = collision.gameObject.GetComponent<Dongle>();
 
@@ -230,10 +230,9 @@ public class Dongle : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         EffectPlay();
-        //manager.SfxPlay(GameManager.Sfx.LevelUp);
         soundManager.sfxAudio.Play(Sfx.LEVELUP);
 
-        anim.SetInteger("Level", level + 1);
+        anim.SetInteger(AniParam.LEVEL, level + 1);
 
         yield return new WaitForSeconds(0.3f);
         level++;
@@ -244,7 +243,7 @@ public class Dongle : MonoBehaviour
     }
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Finish"))
+        if (collision.CompareTag(Tag.FINISH))
         {
             deadtime += Time.deltaTime;
 
@@ -262,7 +261,7 @@ public class Dongle : MonoBehaviour
     }
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Finish"))
+        if (collision.CompareTag(Tag.FINISH))
         {
             deadtime = 0;
             if (fadeInColor != null)
