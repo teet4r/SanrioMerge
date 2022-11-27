@@ -13,6 +13,8 @@ public class SfxAudio : MonoBehaviour
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        if (PlayerPrefs.GetInt(PlayerPrefsKey.SFX_ON) == 0)
+            mute = true;
 
         for (int i = 0; i < clips.Length; i++)
             sfxDictionary.Add(clips[i].name, clips[i]);
